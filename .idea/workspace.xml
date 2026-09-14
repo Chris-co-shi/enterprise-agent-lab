@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ed45efc-1940-4205-8b12-03f1e0f48653" name="Changes" comment="first">
-      <change afterPath="$PROJECT_DIR$/.python-version" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agent_lab/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agent_lab/core/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agent_lab/core/client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agent_lab/tool/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/llm/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/llm/client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/llm/client_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,61 +34,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.3947636065062168" />
-      <entry key="MS500" value="2.6619064246601907" />
-      <entry key="S2" value="3.5618509942452925" />
-      <entry key="S5" value="3.819891211504179" />
-      <entry key="S10" value="4.0748173039013755" />
-      <entry key="S30" value="6.2207124757192" />
-      <entry key="S60" value="10.895434267800391" />
-      <entry key="M2" value="18.33348157631373" />
-      <entry key="M5" value="27.61208590466693" />
-      <entry key="M10" value="35.76596436970812" />
-      <entry key="M15" value="46.2012336076963" />
-      <entry key="M30" value="82.60173875797142" />
-      <entry key="H1" value="133.62047369831205" />
-      <entry key="H2" value="179.37854889168872" />
-      <entry key="H4" value="210.75409522902555" />
-      <entry key="D1" value="242.8204289059758" />
-      <entry key="W1" value="248.95731814975613" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.000000000096632" />
+      <entry key="M5" value="1.0007086624203654" />
+      <entry key="M10" value="1.2344771999568476" />
+      <entry key="M15" value="2.908964745765438" />
+      <entry key="M30" value="20.304618724694343" />
+      <entry key="H1" value="74.42523705153641" />
+      <entry key="H2" value="154.776852831911" />
+      <entry key="H4" value="228.2770668928837" />
+      <entry key="D1" value="319.36246107125964" />
+      <entry key="W1" value="338.6610960445093" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="7.165850914515309E-190" />
-      <entry key="S10" value="2.6769129899821754E-95" />
-      <entry key="S30" value="3.0704045445771815E-32" />
-      <entry key="S60" value="2.5286374192676E-16" />
-      <entry key="M2" value="4.339252895730723E-8" />
-      <entry key="M5" value="0.0073652744209315064" />
-      <entry key="M10" value="0.5739365714720224" />
-      <entry key="M15" value="2.5982169386209004" />
-      <entry key="M30" value="12.109135937271919" />
-      <entry key="H1" value="26.414860709922444" />
-      <entry key="H2" value="39.110327868257855" />
-      <entry key="H4" value="47.61833536223767" />
-      <entry key="D1" value="56.12296231905314" />
-      <entry key="W1" value="57.72801817791699" />
+      <entry key="MS100" value="1.570483780967227E-11" />
+      <entry key="MS500" value="0.0069064924759275675" />
+      <entry key="S2" value="0.31825887143699655" />
+      <entry key="S5" value="0.8539335322170393" />
+      <entry key="S10" value="1.2756516263489053" />
+      <entry key="S30" value="1.7119428062267565" />
+      <entry key="S60" value="1.8490608312737886" />
+      <entry key="M2" value="1.9227082748919264" />
+      <entry key="M5" value="1.9694971007575435" />
+      <entry key="M10" value="2.176437489423479" />
+      <entry key="M15" value="3.2745354124444637" />
+      <entry key="M30" value="11.77607280914854" />
+      <entry key="H1" value="33.017896091779086" />
+      <entry key="H2" value="61.056284129635806" />
+      <entry key="H4" value="85.207708974484" />
+      <entry key="D1" value="113.99326113687476" />
+      <entry key="W1" value="119.96975898297703" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.3660019484220862" />
-      <entry key="MS500" value="2.6503265844366206" />
-      <entry key="S2" value="3.557876775444801" />
-      <entry key="S5" value="3.818176773455775" />
-      <entry key="S10" value="4.073901705400833" />
-      <entry key="S30" value="6.220229835119179" />
-      <entry key="S60" value="10.894950880350898" />
-      <entry key="M2" value="18.33302519378464" />
-      <entry key="M5" value="27.619118886590165" />
-      <entry key="M10" value="36.3381980150887" />
-      <entry key="M15" value="48.79468399692416" />
-      <entry key="M30" value="94.69991852059691" />
-      <entry key="H1" value="160.02337276718796" />
-      <entry key="H2" value="218.48000382604565" />
-      <entry key="H4" value="258.3670211084448" />
-      <entry key="D1" value="298.9423270121689" />
-      <entry key="W1" value="306.6851799040191" />
+      <entry key="MS100" value="0.003424241098890762" />
+      <entry key="MS500" value="0.321569149059084" />
+      <entry key="S2" value="0.8942054821526301" />
+      <entry key="S5" value="1.5102742033495014" />
+      <entry key="S10" value="2.0298798683846884" />
+      <entry key="S30" value="2.6033789028322905" />
+      <entry key="S60" value="2.7904945564158687" />
+      <entry key="M2" value="2.892265876816267" />
+      <entry key="M5" value="2.9577354191368705" />
+      <entry key="M10" value="3.404273380735039" />
+      <entry key="M15" value="6.177669689850737" />
+      <entry key="M30" value="32.072031664524175" />
+      <entry key="H1" value="107.43102504035555" />
+      <entry key="H2" value="215.8216470137945" />
+      <entry key="H4" value="313.476616822643" />
+      <entry key="D1" value="433.35387357520494" />
+      <entry key="W1" value="458.63057630065333" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -195,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789283700385</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first">
+      <option name="closed" value="true" />
+      <created>1789353094188</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1789353094188</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

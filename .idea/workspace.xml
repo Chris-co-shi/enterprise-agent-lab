@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9ed45efc-1940-4205-8b12-03f1e0f48653" name="Changes" comment="first">
+      <change afterPath="$PROJECT_DIR$/.python-version" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/llm/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/llm/client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/llm/client_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.3947636065062168" />
+      <entry key="MS500" value="2.6619064246601907" />
+      <entry key="S2" value="3.5618509942452925" />
+      <entry key="S5" value="3.819891211504179" />
+      <entry key="S10" value="4.0748173039013755" />
+      <entry key="S30" value="6.2207124757192" />
+      <entry key="S60" value="10.895434267800391" />
+      <entry key="M2" value="18.33348157631373" />
+      <entry key="M5" value="27.61208590466693" />
+      <entry key="M10" value="35.76596436970812" />
+      <entry key="M15" value="46.2012336076963" />
+      <entry key="M30" value="82.60173875797142" />
+      <entry key="H1" value="133.62047369831205" />
+      <entry key="H2" value="179.37854889168872" />
+      <entry key="H4" value="210.75409522902555" />
+      <entry key="D1" value="242.8204289059758" />
+      <entry key="W1" value="248.95731814975613" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="7.165850914515309E-190" />
+      <entry key="S10" value="2.6769129899821754E-95" />
+      <entry key="S30" value="3.0704045445771815E-32" />
+      <entry key="S60" value="2.5286374192676E-16" />
+      <entry key="M2" value="4.339252895730723E-8" />
+      <entry key="M5" value="0.0073652744209315064" />
+      <entry key="M10" value="0.5739365714720224" />
+      <entry key="M15" value="2.5982169386209004" />
+      <entry key="M30" value="12.109135937271919" />
+      <entry key="H1" value="26.414860709922444" />
+      <entry key="H2" value="39.110327868257855" />
+      <entry key="H4" value="47.61833536223767" />
+      <entry key="D1" value="56.12296231905314" />
+      <entry key="W1" value="57.72801817791699" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.3660019484220862" />
+      <entry key="MS500" value="2.6503265844366206" />
+      <entry key="S2" value="3.557876775444801" />
+      <entry key="S5" value="3.818176773455775" />
+      <entry key="S10" value="4.073901705400833" />
+      <entry key="S30" value="6.220229835119179" />
+      <entry key="S60" value="10.894950880350898" />
+      <entry key="M2" value="18.33302519378464" />
+      <entry key="M5" value="27.619118886590165" />
+      <entry key="M10" value="36.3381980150887" />
+      <entry key="M15" value="48.79468399692416" />
+      <entry key="M30" value="94.69991852059691" />
+      <entry key="H1" value="160.02337276718796" />
+      <entry key="H2" value="218.48000382604565" />
+      <entry key="H4" value="258.3670211084448" />
+      <entry key="D1" value="298.9423270121689" />
+      <entry key="W1" value="306.6851799040191" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3J5U02KujTdHN0GZV8HVN9mcRu7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.client_test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;G:/gitSourceCode/enterprise-agent-lab&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Python.client_test">
+    <configuration name="client_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="enterprise-agent-lab" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/llm" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/llm/client_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="enterprise-agent-lab" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.client_test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-c59985aa861c-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.24374.152" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9ed45efc-1940-4205-8b12-03f1e0f48653" name="Changes" comment="" />
+      <created>1788950195314</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1788950195314</updated>
+    </task>
+    <task id="LOCAL-00001" summary="first">
+      <option name="closed" value="true" />
+      <created>1789283700385</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1789283700385</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first" />
+    <option name="LAST_COMMIT_MESSAGE" value="first" />
+  </component>
+</project>

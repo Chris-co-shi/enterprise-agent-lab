@@ -1,7 +1,6 @@
 from typing import Optional, Iterator
 
-from agent_lab.core.adapters import create_adapter
-# from .adapters import create_adapter
+from .adapters import create_adapter
 from .exceptions import LLMException
 from .response import StreamStats
 
@@ -76,20 +75,5 @@ class LLMClient:
             print(f"❌ 调用LLM API时发生错误: {e}")
             raise
 
-if __name__ == '__main__':
-    client = LLMClient(
-        model="qwen3.5:4b",
-        api_key="test-key",
-        base_url="http://127.0.0.1:11434/v1"
-    )
-    messages = [
-        {
-            "role": "user",
-            "content": "你是谁"
-        }
-    ]
-    result = client.think(
-        messages=messages,
-        temperature=0.1
-    )
+
     # print(f"result: {result.content}")

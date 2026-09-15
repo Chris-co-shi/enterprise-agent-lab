@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ed45efc-1940-4205-8b12-03f1e0f48653" name="Changes" comment="first">
-      <change afterPath="$PROJECT_DIR$/src/agent_lab/core/message.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/agent_lab/core/response.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/core/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/llm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/tool/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/adapters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/core/llm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/llm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/client_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +96,9 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python tests.Python tests for tests.client_test.test_chat_returns_assistant_message.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.client_test (1).executor&quot;: &quot;Debug&quot;,
     &quot;Python.client_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.llm.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -117,7 +115,31 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.llm">
+  <component name="RunManager" selected="Python.client_test (1)">
+    <configuration name="client_test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="enterprise-agent-lab" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/client_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="client_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="enterprise-agent-lab" />
       <option name="ENV_FILES" value="" />
@@ -209,6 +231,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.client_test (1)" />
         <item itemvalue="Python.llm" />
         <item itemvalue="Python tests.Python tests for tests.client_test.test_chat_returns_assistant_message" />
         <item itemvalue="Python.client_test" />
@@ -262,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789364004219</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="first">
+      <option name="closed" value="true" />
+      <created>1789446628284</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1789446628284</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,9 +307,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tests/client_test.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/src/agent_lab/core/llm.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

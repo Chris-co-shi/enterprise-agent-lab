@@ -16,3 +16,5 @@ if __name__ == '__main__':
         messages=messages,
         temperature=0.1
     )
+    for chunk in result:
+        pass

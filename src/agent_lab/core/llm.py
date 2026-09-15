@@ -53,7 +53,6 @@ class LLMClient:
 
     def think(self, messages: list[dict[str, str]], temperature: Optional[float] = None) -> Iterator[str]:
         print(f"🧠 正在调用 {self.model} 模型...")
-
         # 准备参数
         kwargs = {
             "temperature": temperature if temperature is not None else self.temperature,

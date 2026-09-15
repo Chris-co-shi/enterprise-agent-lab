@@ -108,7 +108,7 @@ class OpenAIAdapter(BaseLLMAdapter):
             reasoning_content = None
             usage = {}
             for chunk in response:
-                choices = getattr(chunk, "choice", None)
+                choices = getattr(chunk, "choices", None)
                 if choices:
                     delta = getattr(choices[0],"delta", None)
                     if delta is not None:

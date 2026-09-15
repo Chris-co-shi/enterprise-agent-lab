@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ed45efc-1940-4205-8b12-03f1e0f48653" name="Changes" comment="first">
+      <change afterPath="$PROJECT_DIR$/src/agent_lab/core/message.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agent_lab/core/response.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agent_lab/core/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/core/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/llm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agent_lab/tool/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/adapters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/agent_lab/core/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/client_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/client_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,61 +31,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="5.736339722345109E-26" />
-      <entry key="MS500" value="8.94802054772857E-6" />
-      <entry key="S2" value="0.05469299967189469" />
-      <entry key="S5" value="0.31274230641857026" />
-      <entry key="S10" value="0.5623927876296199" />
-      <entry key="S30" value="0.9862222771531985" />
-      <entry key="S60" value="1.6977305204157829" />
-      <entry key="M2" value="3.8369333559282786" />
-      <entry key="M5" value="9.406858455322476" />
-      <entry key="M10" value="14.597298593592903" />
-      <entry key="M15" value="18.042825630102175" />
-      <entry key="M30" value="33.57065807034412" />
-      <entry key="H1" value="82.87195677506905" />
-      <entry key="H2" value="163.05549946976893" />
-      <entry key="H4" value="240.67455228802518" />
-      <entry key="D1" value="340.64039975766946" />
-      <entry key="W1" value="362.24812310899745" />
+      <entry key="MS100" value="9.95264884600076E-249" />
+      <entry key="MS500" value="4.366884463245964E-50" />
+      <entry key="S2" value="7.687849875331365E-13" />
+      <entry key="S5" value="2.1773792774973035E-5" />
+      <entry key="S10" value="0.007399195605698343" />
+      <entry key="S30" value="0.5698999127481646" />
+      <entry key="S60" value="1.989036992610258" />
+      <entry key="M2" value="4.21889667418651" />
+      <entry key="M5" value="9.195686519954386" />
+      <entry key="M10" value="19.9387058026813" />
+      <entry key="M15" value="36.49906525079776" />
+      <entry key="M30" value="96.41282376859124" />
+      <entry key="H1" value="186.64639603611565" />
+      <entry key="H2" value="272.6980726616317" />
+      <entry key="H4" value="337.4976397176837" />
+      <entry key="D1" value="567.8820030096434" />
+      <entry key="W1" value="737.9982818699399" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
       <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0000000061812269" />
-      <entry key="S30" value="1.0024354249681686" />
-      <entry key="S60" value="1.0815436211886158" />
-      <entry key="M2" value="1.5872318324782895" />
-      <entry key="M5" value="3.4089241419211667" />
-      <entry key="M10" value="5.279458133063546" />
-      <entry key="M15" value="6.753619436103217" />
-      <entry key="M30" value="13.979663240678466" />
-      <entry key="H1" value="33.5897142757015" />
-      <entry key="H2" value="62.04512427620298" />
-      <entry key="H4" value="87.96222375907884" />
-      <entry key="D1" value="120.03457180239833" />
-      <entry key="W1" value="126.82527985776261" />
+      <entry key="S5" value="1.0000003337274848" />
+      <entry key="S10" value="1.0008091203792053" />
+      <entry key="S30" value="1.1582369684831273" />
+      <entry key="S60" value="1.8138091412582122" />
+      <entry key="M2" value="3.786031814773189" />
+      <entry key="M5" value="9.456288506861803" />
+      <entry key="M10" value="18.518765037049665" />
+      <entry key="M15" value="29.511717188210273" />
+      <entry key="M30" value="63.148873300731566" />
+      <entry key="H1" value="107.89785393056948" />
+      <entry key="H2" value="147.70702813521794" />
+      <entry key="H4" value="176.34514801664125" />
+      <entry key="D1" value="263.34722488358716" />
+      <entry key="W1" value="323.8844512085132" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="9.072930259725341E-6" />
-      <entry key="MS500" value="0.09807381417840785" />
-      <entry key="S2" value="0.5895375663361966" />
-      <entry key="S5" value="1.0384992795978847" />
-      <entry key="S10" value="1.389232096222662" />
-      <entry key="S30" value="1.918055942611566" />
-      <entry key="S60" value="2.7402210430924607" />
-      <entry key="M2" value="5.3981249806785225" />
-      <entry key="M5" value="12.796714303425222" />
-      <entry key="M10" value="19.862773481965874" />
-      <entry key="M15" value="24.784907277683658" />
-      <entry key="M30" value="47.53949616156625" />
-      <entry key="H1" value="116.44908350615884" />
-      <entry key="H2" value="225.08884783989595" />
-      <entry key="H4" value="328.6283156691722" />
-      <entry key="D1" value="460.6730206564691" />
-      <entry key="W1" value="489.07310774922877" />
+      <entry key="MS100" value="3.133364007721933E-4" />
+      <entry key="MS500" value="0.19916002407139569" />
+      <entry key="S2" value="0.6680370391955238" />
+      <entry key="S5" value="0.8509990020261181" />
+      <entry key="S10" value="0.9298045825859541" />
+      <entry key="S30" value="1.6833843835210183" />
+      <entry key="S60" value="3.7599095299296414" />
+      <entry key="M2" value="7.963063122154825" />
+      <entry key="M5" value="18.61292741864999" />
+      <entry key="M10" value="38.41840838127952" />
+      <entry key="M15" value="65.96786932239951" />
+      <entry key="M30" value="159.5137063633622" />
+      <entry key="H1" value="294.50266506037224" />
+      <entry key="H2" value="420.376597848069" />
+      <entry key="H4" value="513.8257965892159" />
+      <entry key="D1" value="831.2249985757592" />
+      <entry key="W1" value="1061.8819884866025" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -95,7 +99,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for tests.client_test.test_chat_returns_assistant_message.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.client_test.test_chat_returns_assistant_message.executor&quot;: &quot;Debug&quot;,
     &quot;Python.client_test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -113,7 +117,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python tests.Python tests for tests.client_test.test_chat_returns_assistant_message">
+  <component name="RunManager" selected="Python.llm">
     <configuration name="client_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="enterprise-agent-lab" />
       <option name="ENV_FILES" value="" />
@@ -130,6 +134,30 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/llm/client_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="llm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="enterprise-agent-lab" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/agent_lab/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/agent_lab/core/llm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -181,6 +209,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.llm" />
         <item itemvalue="Python tests.Python tests for tests.client_test.test_chat_returns_assistant_message" />
         <item itemvalue="Python.client_test" />
       </list>
@@ -225,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789359250999</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="first">
+      <option name="closed" value="true" />
+      <created>1789364004219</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1789364004219</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,5 +271,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
     <option name="LAST_COMMIT_MESSAGE" value="first" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/client_test.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

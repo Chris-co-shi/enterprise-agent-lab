@@ -9,7 +9,7 @@ MessageRole  = Literal["user", "assistant", "system", "tool", "summary"]
 基础消息类
 """
 class Message(BaseModel):
-     role: str = None
+     role: MessageRole = None
      content: str = None
      timestamp: datetime = None
      metadata: Optional[dict[str, Any]] = None

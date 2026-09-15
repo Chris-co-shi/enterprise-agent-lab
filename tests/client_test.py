@@ -12,9 +12,10 @@ if __name__ == '__main__':
             "content": "你是谁"
         }
     ]
-    result = client.think(
+    result = client.invoke(
         messages=messages,
         temperature=0.1
     )
-    for chunk in result:
-        pass
+    print(f"result = {result}")
+    # for chunk in result:
+    #     pass

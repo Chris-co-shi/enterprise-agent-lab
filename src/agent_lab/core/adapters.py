@@ -66,7 +66,7 @@ class OpenAIAdapter(BaseLLMAdapter):
             )
             latency_ms = int((time.time() - start_time) * 1000)
             # 提取关键信息
-            choice = response.choice[0]
+            choice = response.choices[0]
             content = choice.message.content or ""
             reasoning_content = None
             # 判断是否包含推理过程信息
@@ -87,6 +87,7 @@ class OpenAIAdapter(BaseLLMAdapter):
                 content = content,
                 model=self.model,
                 latency_ms=latency_ms,
+                usage=usage,
                 reasoning_content = reasoning_content
             )
         except Exception as exc:

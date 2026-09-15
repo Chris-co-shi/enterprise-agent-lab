@@ -26,6 +26,18 @@ class LLMResponse:
     def __str__(self):
         return self.content
 
+    def __repr__(self):
+        """详细信息展示"""
+        parts = [
+            f"LLMResponse(model={self.model}",
+            f"latency={self.latency_ms}ms",
+            f"tokens={self.usage.get('total_tokens', 0)}",
+        ]
+        if self.reasoning_content:
+            parts.append("has_reasoning=True")
+        parts.append(f"content_length={len(self.content)})")
+        return ", ".join(parts)
+
 """
         流式调用的统计信息
         在流式调用结束后可通过 llm.last_call_stats 获取

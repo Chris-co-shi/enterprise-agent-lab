@@ -2,7 +2,7 @@ from typing import Optional, Iterator
 
 from .adapters import create_adapter
 from .exceptions import LLMException
-from .response import StreamStats
+from .response import LLMResponse, StreamStats
 
 class LLMClient:
     """
@@ -37,11 +37,11 @@ class LLMClient:
         self.kwargs = kwargs
         # self.client = OpenAI(api_key=api_key, base_url=base_url, timeout=timeout)
         if not model:
-            raise LLMException("必须提供模型名称（model参数或LLM_MODEL_ID环境变量）")
+            raise LLMException("必须提供模型名称")
         if not api_key:
-            raise LLMException("必须提供API密钥（api_key参数或LLM_API_KEY环境变量）")
+            raise LLMException("必须提供API密钥")
         if not base_url:
-            raise LLMException("必须提供服务地址（base_url参数或LLM_BASE_URL环境变量）")
+            raise LLMException("必须提供服务地址")
 
         self._adapter = create_adapter(
             api_key=api_key,
@@ -74,5 +74,31 @@ class LLMClient:
             print(f"❌ 调用LLM API时发生错误: {e}")
             raise
 
+    def invoke(self, messages: list[dict[str, str]], **kwargs) -> LLMResponse:
+        """
+        非流式调用LLM，返回完整响应对象。
 
-    # print(f"result: {result.content}")
+        Args:
+            messages: 消息列表
+            **kwargs: 其他参数（temperature, max_tokens等）
+
+        Returns:
+            LLMResponse: 包含内容、统计信息、推理过程（thinking model）的响应对象
+
+        Example:
+            response = llm.invoke([{"role": "user", "content": "你好"}])
+            print(response.content)  # 回复内容
+            print(response.usage)    # token使用量
+            print(response.latency_ms)  # 耗时
+            if response.reasoning_content:  # thinking model的推理过程
+                print(response.reasoning_content)
+        """
+        # 合并参数
+        call_kwargs = {
+            "temperature": kwargs.pop("temperature", self.temperature),
+        }
+        if self.max_tokens:
+            call_kwargs["max_tokens"] = kwargs.pop("max_tokens", self.max_tokens)
+        call_kwargs.update(kwargs)
+
+        return self._adapter.invoke(messages, **call_kwargs)

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional, Any, Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 MessageRole  = Literal["user", "assistant", "system", "tool", "summary"]
 
@@ -9,9 +9,9 @@ MessageRole  = Literal["user", "assistant", "system", "tool", "summary"]
 基础消息类
 """
 class Message(BaseModel):
-     role: MessageRole = None
+     role: MessageRole
      content: str = None
-     timestamp: datetime = None
+     timestamp: datetime = Field(default_factory=datetime.now)
      metadata: Optional[dict[str, Any]] = None
 
      def __init__(self, role: MessageRole, content: str, **kwargs):

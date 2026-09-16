@@ -1,5 +1,5 @@
-from core import Message
-from llm import LLMClient
+from agent_lab.core import Message
+from agent_lab.llm import LLMClient
 
 if __name__ == '__main__':
     client = LLMClient(

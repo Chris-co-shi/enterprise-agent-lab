@@ -4,43 +4,40 @@ from typing import Callable, Any, Iterator
 import openai.types.chat as openai_chat
 
 from .base import BaseLLMAdapter
-from agent_lab.core.response import LLMResponse, StreamStats
-from agent_lab.core.exceptions import LLMException
-from agent_lab.core.message import Message, MessageRole
+from ...core import LLMResponse, StreamStats,LLMException,Message, MessageRole
 
+
+def _convert_system_message(
+        message: Message,
+) -> openai_chat.ChatCompletionMessageParam:
+    return openai_chat.ChatCompletionSystemMessageParam(
+        role="system",
+        content=message.content,
+    )
+
+
+def _convert_user_message(
+        message: Message,
+) -> openai_chat.ChatCompletionMessageParam:
+    return openai_chat.ChatCompletionUserMessageParam(
+        role="user",
+        content=message.content,
+    )
+
+
+def _convert_assistant_message(
+        message: Message,
+) -> openai_chat.ChatCompletionMessageParam:
+    return openai_chat.ChatCompletionAssistantMessageParam(
+        role="assistant",
+        content=message.content,
+    )
 
 class OpenAIAdapter(BaseLLMAdapter):
     OpenAIMessageConverter = Callable[
         [Message],
         openai_chat.ChatCompletionMessageParam,
     ]
-
-    @staticmethod
-    def _convert_system_message(
-            message: Message,
-    ) -> openai_chat.ChatCompletionMessageParam:
-        return openai_chat.ChatCompletionSystemMessageParam(
-            role="system",
-            content=message.content,
-        )
-
-    @staticmethod
-    def _convert_user_message(
-            message: Message,
-    ) -> openai_chat.ChatCompletionMessageParam:
-        return openai_chat.ChatCompletionUserMessageParam(
-            role="user",
-            content=message.content,
-        )
-
-    @staticmethod
-    def _convert_assistant_message(
-            message: Message,
-    ) -> openai_chat.ChatCompletionMessageParam:
-        return openai_chat.ChatCompletionAssistantMessageParam(
-            role="assistant",
-            content=message.content,
-        )
 
     _MESSAGE_CONVERTERS: dict[
         MessageRole,
@@ -51,7 +48,7 @@ class OpenAIAdapter(BaseLLMAdapter):
         "assistant": _convert_assistant_message,
     }
 
-    def _convert_message(self, messages: list[Message]) -> list[openai_chat.ChatCompletionMessageParam]:
+    def _convert_messages(self, messages: list[Message]) -> list[openai_chat.ChatCompletionMessageParam]:
         converted_messages: list[
             openai_chat.ChatCompletionMessageParam
         ] = []
@@ -80,7 +77,7 @@ class OpenAIAdapter(BaseLLMAdapter):
             self._client = self.create_client()
         start_time = time.time()
         try:
-            provider_messages  = self._convert_message(messages)
+            provider_messages  = self._convert_messages(messages)
             response = self._client.chat.completions.create(
                 model=self.model,
                 messages = provider_messages ,
@@ -120,8 +117,9 @@ class OpenAIAdapter(BaseLLMAdapter):
         if not self._client:
             self._client = self.create_client()
         start_time = time.time()
-        provider_messages = self._convert_message(messages)
+
         try:
+            provider_messages = self._convert_messages(messages)
             response = self._client.chat.completions.create(
                 model=self.model,
                 messages=provider_messages,

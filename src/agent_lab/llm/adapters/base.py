@@ -35,7 +35,7 @@ class BaseLLMAdapter(ABC):
         pass
 
     @abstractmethod
-    def _convert_message(
+    def _convert_messages(
             self,
             messages: list[Message]
     ) -> Any:

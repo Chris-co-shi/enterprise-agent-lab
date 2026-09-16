@@ -1,9 +1,9 @@
 from typing import Optional, Iterator
 
-from agent_lab.llm.adapters import create_adapter
-from agent_lab.core.exceptions import LLMException
-from agent_lab.core.response import LLMResponse, StreamStats
-from agent_lab.core.message import Message
+from .adapters import create_adapter
+from ..core.exceptions import LLMException
+from ..core.response import LLMResponse, StreamStats
+from ..core.message import Message
 class LLMClient:
     """
     统一LLM客户端

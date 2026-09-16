@@ -5,10 +5,14 @@ from pydantic import BaseModel, Field
 
 MessageRole  = Literal["user", "assistant", "system", "tool", "summary"]
 
-"""
-基础消息类
-"""
+
 class Message(BaseModel):
+     """框架内部统一消息模型。
+
+     Message 用于在 Agent、上下文管理、LLM 调用及后续 Tool 交互之间传递消息，
+     不直接依赖任何具体模型 Provider 的消息协议。
+     """
+
      role: MessageRole
      content: str = None
      timestamp: datetime = Field(default_factory=datetime.now)

@@ -1,49 +1,71 @@
 import time
-from abc import ABC, abstractmethod
-from typing import Optional, Any, Iterator
-from .response import LLMResponse, StreamStats
-from .exceptions import LLMException
+from typing import Callable, Any, Iterator
 
-class BaseLLMAdapter(ABC):
-    def __init__(
-            self,
-            model: str,
-            base_url: Optional[str],
-            api_key: str,
-            timeout: int
-    ):
-        self.api_key = api_key
-        self.base_url = base_url
-        self.timeout = timeout
-        self.model = model
-        self._client = None
+import openai.types.chat as openai_chat
 
-    """抽象出创建客户端的方式"""
-    @abstractmethod
-    def create_client(self) -> Any:
-        pass
-
-    """抽象非流式调用方法"""
-    @abstractmethod
-    def invoke(self, messages: list[dict], **kwargs) -> LLMResponse:
-        pass
-
-    """抽象流式调用方法"""
-    @abstractmethod
-    def stream_invoke(self, messages: list[dict], **kwargs) -> Iterator[str]:
-        pass
+from .base import BaseLLMAdapter
+from agent_lab.core.response import LLMResponse, StreamStats
+from agent_lab.core.exceptions import LLMException
+from agent_lab.core.message import Message, MessageRole
 
 
 class OpenAIAdapter(BaseLLMAdapter):
-    # def __init__(
-    #         self,
-    #         model: str,
-    #         base_url: Optional[str],
-    #         api_key: str,
-    #         timeout: int
-    # ):
-    #     super().__init__(model, base_url, api_key, timeout)
-    #     self.last_stats = None
+    OpenAIMessageConverter = Callable[
+        [Message],
+        openai_chat.ChatCompletionMessageParam,
+    ]
+
+    @staticmethod
+    def _convert_system_message(
+            message: Message,
+    ) -> openai_chat.ChatCompletionMessageParam:
+        return openai_chat.ChatCompletionSystemMessageParam(
+            role="system",
+            content=message.content,
+        )
+
+    @staticmethod
+    def _convert_user_message(
+            message: Message,
+    ) -> openai_chat.ChatCompletionMessageParam:
+        return openai_chat.ChatCompletionUserMessageParam(
+            role="user",
+            content=message.content,
+        )
+
+    @staticmethod
+    def _convert_assistant_message(
+            message: Message,
+    ) -> openai_chat.ChatCompletionMessageParam:
+        return openai_chat.ChatCompletionAssistantMessageParam(
+            role="assistant",
+            content=message.content,
+        )
+
+    _MESSAGE_CONVERTERS: dict[
+        MessageRole,
+        OpenAIMessageConverter,
+    ] = {
+        "system": _convert_system_message,
+        "user": _convert_user_message,
+        "assistant": _convert_assistant_message,
+    }
+
+    def _convert_message(self, messages: list[Message]) -> list[openai_chat.ChatCompletionMessageParam]:
+        converted_messages: list[
+            openai_chat.ChatCompletionMessageParam
+        ] = []
+        for message in messages:
+            converter = self._MESSAGE_CONVERTERS.get(message.role)
+            if converter is None:
+                raise LLMException(
+                    f"OpenAIAdapter 当前不支持消息角色: {message.role}"
+                )
+            converted_messages.append(
+                converter(message)
+            )
+        return converted_messages
+
 
     def create_client(self) -> Any:
         from openai import OpenAI
@@ -53,15 +75,15 @@ class OpenAIAdapter(BaseLLMAdapter):
             timeout=self.timeout
         )
 
-    def invoke(self, messages: list[dict], **kwargs) -> LLMResponse:
+    def invoke(self, messages: list[Message], **kwargs) -> LLMResponse:
         if not self._client:
             self._client = self.create_client()
         start_time = time.time()
-
         try:
+            provider_messages  = self._convert_message(messages)
             response = self._client.chat.completions.create(
                 model=self.model,
-                messages = messages,
+                messages = provider_messages ,
                 **kwargs
             )
             latency_ms = int((time.time() - start_time) * 1000)
@@ -94,14 +116,15 @@ class OpenAIAdapter(BaseLLMAdapter):
             raise LLMException(f"OpenAI API 调用失败:{str(exc)}")
 
 
-    def stream_invoke(self, messages: list[dict], **kwargs) -> Iterator[str]:
+    def stream_invoke(self, messages: list[Message], **kwargs) -> Iterator[str]:
         if not self._client:
             self._client = self.create_client()
         start_time = time.time()
+        provider_messages = self._convert_message(messages)
         try:
             response = self._client.chat.completions.create(
                 model=self.model,
-                messages=messages,
+                messages=provider_messages,
                 stream=True,
                 **kwargs
             )
@@ -140,15 +163,3 @@ class OpenAIAdapter(BaseLLMAdapter):
             )
         except Exception as exc:
             raise LLMException(f"OpenAI API 调用失败:{str(exc)}")
-
-
-
-
-def create_adapter(
-        api_key: str,
-        base_url: Optional[str],
-        timeout: int,
-        model: str
-) -> BaseLLMAdapter:
-    # 目前默认使用OpenAI的方式创建 LLM客户端,后续如果有需要在进行扩展
-    return OpenAIAdapter(api_key=api_key,base_url=base_url,timeout=timeout, model=model)

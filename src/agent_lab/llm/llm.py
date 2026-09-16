@@ -1,9 +1,9 @@
 from typing import Optional, Iterator
 
-from .adapters import create_adapter
-from .exceptions import LLMException
-from .response import LLMResponse, StreamStats
-
+from agent_lab.llm.adapters import create_adapter
+from agent_lab.core.exceptions import LLMException
+from agent_lab.core.response import LLMResponse, StreamStats
+from agent_lab.core.message import Message
 class LLMClient:
     """
     统一LLM客户端
@@ -14,7 +14,7 @@ class LLMClient:
             model: Optional[str] = None,
             api_key: Optional[str] = None,
             base_url: Optional[str] = None,
-            timeout: Optional[int] = None,
+            timeout: int = 60,
             temperature: float = 0.7,
             max_tokens: Optional[int] = None,
             **kwargs
@@ -51,7 +51,7 @@ class LLMClient:
         )
         self.last_call_stats: Optional[StreamStats] = None
 
-    def think(self, messages: list[dict[str, str]], temperature: Optional[float] = None) -> Iterator[str]:
+    def think(self, messages: list[Message], temperature: Optional[float] = None) -> Iterator[str]:
         print(f"🧠 正在调用 {self.model} 模型...")
         # 准备参数
         kwargs = {
@@ -74,7 +74,7 @@ class LLMClient:
             print(f"❌ 调用LLM API时发生错误: {e}")
             raise
 
-    def invoke(self, messages: list[dict[str, str]], **kwargs) -> LLMResponse:
+    def invoke(self, messages: list[Message], **kwargs) -> LLMResponse:
         """
         非流式调用LLM，返回完整响应对象。
 

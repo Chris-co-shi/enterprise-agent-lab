@@ -1,4 +1,5 @@
-from agent_lab.core import LLMClient
+from core import Message
+from llm import LLMClient
 
 if __name__ == '__main__':
     client = LLMClient(
@@ -7,10 +8,14 @@ if __name__ == '__main__':
         base_url="http://127.0.0.1:11434/v1"
     )
     messages = [
-        {
-            "role": "user",
-            "content": "你是谁"
-        }
+        Message(
+            role="system",
+            content="你是一个 AI Agent 助手。",
+        ),
+        Message(
+            role="user",
+            content="你是谁？",
+        ),
     ]
     result = client.invoke(
         messages=messages,

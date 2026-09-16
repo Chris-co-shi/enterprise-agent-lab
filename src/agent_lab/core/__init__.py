@@ -1,8 +1,7 @@
-from .llm import LLMClient
 from .response import LLMResponse, StreamStats
-
+from .message import Message
 __all__ = [
-    "LLMClient",
     "LLMResponse",
-    "StreamStats"
+    "StreamStats",
+    "Message"
 ]

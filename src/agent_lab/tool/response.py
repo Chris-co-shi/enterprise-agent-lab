@@ -1,7 +1,9 @@
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic.dataclasses import dataclass
+from pygments.lexer import default
+
 
 class ToolStatus(Enum):
     """工具运行状态"""
@@ -14,6 +16,6 @@ class ToolResponse:
 
     text: str
 
-    data: dict[str, Any]
+    data: dict[str, Any] = field(default_factory=dict)
 
     # error_info: Optional[dict[str, Any]]

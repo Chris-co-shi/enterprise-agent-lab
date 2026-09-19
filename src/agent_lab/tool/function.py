@@ -3,7 +3,7 @@ from collections.abc import Callable
 from typing import Any
 
 from .base import Tool, ToolParameter
-from .response import ToolResponse, ToolStatus, ToolError
+from .response import ToolResponse, ToolError
 
 
 class FunctionTool(Tool):
@@ -54,6 +54,6 @@ class FunctionTool(Tool):
             return ToolResponse.error(
                 error_info=ToolError(
                     type = type(exc).__name__,
-                    messages = str(exc)
+                    message = str(exc)
                 )
             )

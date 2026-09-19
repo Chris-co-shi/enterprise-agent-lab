@@ -13,7 +13,7 @@ class ToolStatus(Enum):
 @dataclass
 class ToolError:
     type: Optional[str]
-    messages: str | None
+    message: str | None
     # retryable: bool # 暂时先不处理。我认为应该可以交给LLM 处理
     # code: str | None
 
@@ -22,7 +22,7 @@ class ToolError:
 class ToolResponse:
     status: ToolStatus
 
-    text: str
+    text: str =""
 
     error_info: ToolError | None = None
 
@@ -40,7 +40,6 @@ class ToolResponse:
     def error(cls, error_info: ToolError) -> 'ToolResponse':
         return cls(
             status=ToolStatus.ERROR,
-            text="",
             data={},
             error_info=error_info
         )

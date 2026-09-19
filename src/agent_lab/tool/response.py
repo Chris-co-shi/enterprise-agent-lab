@@ -9,12 +9,13 @@ class ToolStatus(Enum):
     # PARTIAL = "partial" # 结果可用但存在折扣（截断、回退、部分失败）
     ERROR = "error"
 
+
 @dataclass
 class ToolError:
     type: Optional[str]
-    messages: Optional[str]
+    messages: str | None
     # retryable: bool # 暂时先不处理。我认为应该可以交给LLM 处理
-    #code: str | None
+    # code: str | None
 
 
 @dataclass
@@ -23,19 +24,19 @@ class ToolResponse:
 
     text: str
 
-    error_info: Optional[ToolError]
+    error_info: ToolError | None = None
 
     data: dict[str, Any] = field(default_factory=dict)
 
-    @staticmethod
-    def success(cls,text: str, data: dict[str, Any]) -> 'ToolResponse':
+    @classmethod
+    def success(cls, text: str, data: dict[str, Any]) -> 'ToolResponse':
         return cls(
-            status = ToolStatus.SUCCESS,
-            text = text,
-            data = data,
-            error_info = ToolError()
+            status=ToolStatus.SUCCESS,
+            text=text,
+            data=data or {},
         )
-    @staticmethod
+
+    @classmethod
     def error(cls, error_info: ToolError) -> 'ToolResponse':
         return cls(
             status=ToolStatus.ERROR,

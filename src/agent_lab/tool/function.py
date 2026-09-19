@@ -3,7 +3,7 @@ from collections.abc import Callable
 from typing import Any
 
 from .base import Tool, ToolParameter
-from .response import ToolResponse
+from .response import ToolResponse, ToolStatus, ToolError
 
 
 class FunctionTool(Tool):
@@ -28,7 +28,6 @@ class FunctionTool(Tool):
                 description=""
             )
             parameters.append(tool_param)
-            pass
 
         super().__init__(
             name=name,
@@ -37,4 +36,18 @@ class FunctionTool(Tool):
         )
 
     def run(self, arguments: dict[str, Any]) -> ToolResponse:
-        return self.func(**arguments)
+        try:
+            result = self.func(**arguments)
+            data = result if isinstance(result, dict) else {"result": result}
+
+            return ToolResponse.success(
+                text=str(result),
+                data=data,
+            )
+        except Exception as exc:
+            return ToolResponse.error(
+                error_info=ToolError(
+                    type = type(exc).__name__,
+                    messages = str(exc)
+                )
+            )

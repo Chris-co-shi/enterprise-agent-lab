@@ -3,18 +3,18 @@ from agent_lab.llm import LLMClient
 
 if __name__ == '__main__':
     client = LLMClient(
-        model="qwen3.5:4b",
-        api_key="test-key",
-        base_url="http://127.0.0.1:11434/v1"
+        model="deepseek-flash",
+        api_key="sk-64a957090b9f4bccb874413b4ebb36e1",
+        base_url="https://api.deepseek.com/v1"
     )
     messages = [
-        Message(
-            role="system",
-            content="你是一个 AI Agent 助手。",
-        ),
+        # Message(
+        #     role="system",
+        #     content="你是一个 AI Agent 助手。",
+        # ),
         Message(
             role="user",
-            content="你是谁？",
+            content="你好可以帮我解决一些关于Rust的学习计划吗？",
         ),
     ]
     result = client.invoke(

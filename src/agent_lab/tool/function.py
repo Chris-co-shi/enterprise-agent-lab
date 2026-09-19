@@ -1,9 +1,40 @@
+import inspect
+from collections.abc import Callable
 from typing import Any
 
-from .base import Tool
+from .base import Tool, ToolParameter
 from .response import ToolResponse
 
 
 class FunctionTool(Tool):
+
+    def __init__(self, func: Callable[..., Any]):
+        self.func = func
+
+        name = func.__name__
+
+        description = inspect.getdoc(func) or ""
+
+        parameters: list[ToolParameter] = []
+        signature = inspect.signature(func)
+
+        for parameter in signature.parameters.values():
+            # 通过反射机制获取 属性 然后组装 工具参数
+            required = parameter.default is inspect.Parameter.empty
+            tool_param = ToolParameter(
+                name=parameter.name,
+                annotation=parameter.annotation,
+                required=required,
+                description=""
+            )
+            parameters.append(tool_param)
+            pass
+
+        super().__init__(
+            name=name,
+            description=description,
+            parameters=parameters
+        )
+
     def run(self, arguments: dict[str, Any]) -> ToolResponse:
-        pass
+        return self.func(**arguments)

@@ -80,7 +80,8 @@ class OpenAIAdapter(BaseLLMAdapter):
             provider_messages  = self._convert_messages(messages)
             response = self._client.chat.completions.create(
                 model=self.model,
-                messages = provider_messages ,
+                messages = provider_messages,
+                stream=False,
                 **kwargs
             )
             latency_ms = int((time.time() - start_time) * 1000)
@@ -110,6 +111,18 @@ class OpenAIAdapter(BaseLLMAdapter):
                 reasoning_content = reasoning_content
             )
         except Exception as exc:
+            print("TYPE:", type(exc))
+
+            if hasattr(exc, "request"):
+                print("URL:", exc.request.url)
+                print("HEADERS:", exc.request.headers)
+                print("BODY:", exc.request.content)
+
+            if hasattr(exc, "response"):
+                print("STATUS:", exc.response.status_code)
+                print("RESPONSE HEADERS:", exc.response.headers)
+                print("RESPONSE BODY:", exc.response.text)
+
             raise LLMException(f"OpenAI API 调用失败:{str(exc)}")
 
 

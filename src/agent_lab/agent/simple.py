@@ -72,6 +72,7 @@ class SimpleAgent(BaseAgent):
                 f"Agent exceeded max tool iterations: "
                 f"{self.max_tool_iterations}"
             )
+        return final_response
 
 
     def _build_messages(self, input_text: str) -> list[Message]:

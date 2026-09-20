@@ -20,19 +20,19 @@ history.append(
 
 
 print("history:")
-print(history.get())
+print(history.get_history())
 
 
-assert len(history.get()) == 2
+assert len(history.get_history()) == 2
 
-assert history.get()[0].content == "hello"
+assert history.get_history()[0].content == "hello"
 
-assert history.get()[1].content == "hi"
+assert history.get_history()[1].content == "hi"
 
 
 history.clear()
 
-assert len(history.get()) == 0
+assert len(history.get_history()) == 0
 
 
 print("✅ HistoryManager test passed")

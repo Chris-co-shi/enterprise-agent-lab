@@ -20,14 +20,6 @@ class HistoryManager:
         # 获取历史
         history = manager.get_history()
 
-        # 压缩历史
-        manager.compress("这是前面对话的摘要")
-
-        # 序列化
-        data = manager.to_dict()
-
-        # 反序列化
-        manager.load_from_dict(data)
         ```
     """
 
@@ -40,7 +32,7 @@ class HistoryManager:
     def append(self, message: Message):
         self._history.append(message)
 
-    def get(self) -> list[Message]:
+    def get_history(self) -> list[Message]:
         # copy() 至少保护 list 容器本身。 不然直接返回原数组 history 会被清空
         return self._history.copy()
 

@@ -3,6 +3,14 @@ from typing import Optional
 
 
 @dataclass
+class ToolCall:
+    """统一的工具调用对象"""
+    id: str
+    name: str
+    arguments: str
+
+
+@dataclass
 class LLMResponse:
     """统一的 LLM 非流式响应对象。
 
@@ -10,11 +18,13 @@ class LLMResponse:
     以及部分 reasoning model 可能返回的推理内容。
     """
 
-    content: str
+    content: Optional[str]
     """模型回复内容。"""
 
     model: str
     """实际使用的模型名称。"""
+
+    tool_calls: list[ToolCall] = field(default_factory=list)
 
     usage: dict[str, int] = field(default_factory=dict)
     """Token 使用统计，例如 prompt_tokens、completion_tokens、total_tokens。"""

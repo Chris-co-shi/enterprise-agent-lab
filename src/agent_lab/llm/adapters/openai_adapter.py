@@ -1,3 +1,4 @@
+import json
 import time
 from typing import Callable, Any, Iterator
 
@@ -5,6 +6,7 @@ import openai.types.chat as openai_chat
 
 from .base import BaseLLMAdapter
 from ...core import LLMResponse, StreamStats, LLMException, Message, MessageRole, python_type_to_json_schema
+from ...core import ToolCall
 from ...tool import Tool
 
 
@@ -68,7 +70,7 @@ class OpenAIAdapter(BaseLLMAdapter):
     def _convert_tool(
             self,
             tool: Tool
-    ):
+    ) -> dict[str, Any]:
         properties: dict[str, Any] = {}
         required: list[str] = []
 
@@ -121,11 +123,24 @@ class OpenAIAdapter(BaseLLMAdapter):
         start_time = time.time()
         try:
             provider_messages = self._convert_messages(messages)
+            tools = kwargs.pop("tools", None)
+            provider_tools = (
+                self._convert_tools(tools)
+                if tools
+                else None
+            )
+
+            request_kwargs = {
+                **kwargs
+            }
+            if provider_tools:
+                request_kwargs["tools"] = provider_tools
+            print(provider_tools)
             response = self._client.chat.completions.create(
                 model=self.model,
                 messages=provider_messages,
                 stream=False,
-                **kwargs
+                **request_kwargs
             )
             latency_ms = int((time.time() - start_time) * 1000)
             # 提取关键信息
@@ -146,12 +161,27 @@ class OpenAIAdapter(BaseLLMAdapter):
                     "total_tokens": response.usage.total_tokens,
                 }
 
+            tool_calls: list[ToolCall] = []
+
+            if choice.message.tool_calls:
+                for tool_call in choice.message.tool_calls:
+                    tool_calls.append(
+                        ToolCall(
+                            id = tool_call.id,
+                            name = tool_call.function.name,
+                            arguments=json.loads(
+                                tool_call.function.arguments
+                            )
+                        )
+                    )
+
             return LLMResponse(
                 content=content,
                 model=self.model,
                 latency_ms=latency_ms,
                 usage=usage,
-                reasoning_content=reasoning_content
+                reasoning_content=reasoning_content,
+                tool_calls = tool_calls
             )
         except Exception as exc:
             print("TYPE:", type(exc))

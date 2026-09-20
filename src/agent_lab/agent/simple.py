@@ -1,4 +1,5 @@
-from ..tool.response import ToolResponse, ToolError,ToolStatus
+from ..trace import trace_agent
+from ..tool.response import ToolResponse, ToolError, ToolStatus
 from ..core.exceptions import AgentException
 from ..core import Message
 from ..llm import LLMClient
@@ -14,7 +15,7 @@ class SimpleAgent(BaseAgent):
             llm: LLMClient,
             tool_registry: ToolRegistry | None = None,  # 因为 Agent 即使没有工具，也应该能退化成普通 LLM Agent。
             system_prompt: str | None = None,
-            max_tool_iterations: int = 5  #最大工具调用轮次
+            max_tool_iterations: int = 5  # 最大工具调用轮次
     ):
         super().__init__(
             name=name,
@@ -24,6 +25,7 @@ class SimpleAgent(BaseAgent):
         )
         self.max_tool_iterations = max_tool_iterations
 
+    @trace_agent()
     def run(self, input_text: str, **kwargs) -> str:
         messages = self._build_messages(input_text)
         tools = (

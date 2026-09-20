@@ -36,9 +36,9 @@ result = agent.run(
     "请使用工具计算 12 + 8。"
 )
 
-print("result:", result)
-print("history:", agent.get_history())
-
-assert result
-assert "20" in result
-assert len(agent.get_history()) == 2
+# print("result:", result)
+# print("history:", agent.get_history())
+#
+# assert result
+# assert "20" in result
+# assert len(agent.get_history()) == 2

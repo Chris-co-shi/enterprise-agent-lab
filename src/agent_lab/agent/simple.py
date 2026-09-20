@@ -1,3 +1,4 @@
+from core import ToolCall
 from ..core import Message
 from ..llm import LLMClient
 from ..tool.registry import ToolRegistry
@@ -41,7 +42,7 @@ class SimpleAgent(BaseAgent):
         while current_iteration <= self.max_tool_iterations:
             current_iteration+=1
             try:
-                self.llm.invoke(
+                response = self.llm.invoke(
                     messages = messages,
                     tools = self.tool_registry.list_tools()
                 )
@@ -49,6 +50,25 @@ class SimpleAgent(BaseAgent):
                 break
             # 处理工具调用
             tool_calls = response.tool_calls
+            if not tool_calls:
+                # 没有工具调用，直接返回文本响应
+                final_response = response.content or "抱歉，我无法回答这个问题。"
+                break
+
+            # 将助手消息添加到历史
+            messages.append(Message(
+                role="assistant",
+                content=response.content,
+                tool_calls=[
+                    ToolCall(
+                        id=tc.id,
+                        name=tc.name,
+                        arguments=tc.arguments
+                    )
+                    for tc in tool_calls
+                ]
+            ))
+
 
 
     def _build_messages(self, input_text: str) -> list[Message]:

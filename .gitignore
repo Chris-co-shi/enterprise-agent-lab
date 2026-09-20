@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
 # Virtual environment
 .venv/
 venv/
@@ -39,3 +38,4 @@ desktop.ini
 
 # Logs
 *.log
+/logs/

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from ..tool.registry import ToolRegistry
+from ..tool import ToolRegistry
 from ..core import Message
 from ..context import HistoryManager
 from ..llm import LLMClient

@@ -1,3 +1,5 @@
+from tool.response import ToolStatus
+from ..tool.response import ToolResponse, ToolError
 from ..core.exceptions import AgentException
 from ..core import Message
 from ..llm import LLMClient
@@ -23,27 +25,27 @@ class SimpleAgent(BaseAgent):
         )
         self.max_tool_iterations = max_tool_iterations
 
-    def run(self, input_text: str, **kwargs) -> str:
+    def run(self, input_text: str, **kwargs) -> str | None:
         messages = self._build_messages(input_text)
-        # tool = (
-        #     self.tool_registry.list_tools() if self.tool_registry else None
-        # )
+        tools = (
+            self.tool_registry.list_tools()
+            if self.tool_registry
+            else []
+        )
         # 如果没有启用工具调用，直接返回 LLM 响应
-        if not self.tool_registry or not self.tool_registry.list_tools():
+        if not tools:
             response = self.llm.invoke(messages, **kwargs)
-            response_text = response.content if hasattr(response, 'content') else str(response)
+            response_text = response.content or ""
             self.add_message(Message(role="user", content=input_text))
             self.add_message(Message(role="assistant", content=response_text))
             return response_text
 
-        current_iteration = 0
-        final_response = ""
-
-        while current_iteration < self.max_tool_iterations:
-            current_iteration+=1
+        for current_iteration in range(
+                self.max_tool_iterations + 1
+        ):
             response = self.llm.invoke(
                 messages=messages,
-                tools=self.tool_registry.list_tools(),
+                tools=tools,
                 **kwargs
             )
 
@@ -51,10 +53,29 @@ class SimpleAgent(BaseAgent):
             tool_calls = response.tool_calls
             if not tool_calls:
                 # 没有工具调用，直接返回文本响应
-                final_response = response.content or "抱歉，我无法回答这个问题。"
-                break
+                final_response = response.content or ""
+                self.add_message(
+                    Message(
+                        role="user",
+                        content=input_text
+                    )
+                )
+                self.add_message(
+                    Message(
+                        role="assistant",
+                        content=final_response
+                    )
+                )
+                return final_response
 
-            # 将助手消息添加到历史
+            if current_iteration >= self.max_tool_iterations:
+                raise AgentException(
+                    f"Agent exceeded max tool iterations: "
+                    f"{self.max_tool_iterations}"
+                )
+            # 记录 LLM 发起的 ToolCall
+            # 注意：这里只加入本次 working messages，
+            # 不提交到长期 History
             messages.append(Message(
                 role="assistant",
                 content=response.content,
@@ -63,17 +84,44 @@ class SimpleAgent(BaseAgent):
 
             for tool_call in tool_calls:
                 tool = self.tool_registry.get(tool_call.name)
+                # Tool 不存在，也统一转换成 ToolResponse.ERROR
                 if tool is None:
-                    continue
-                tool_response = tool.run(tool_call.arguments)
+                    tool_response = ToolResponse.error(
+                        error_info=ToolError(
+                            type="ToolNotFound",
+                            message=(
+                                f"Tool '{tool_call.name}' "
+                                f"not found"
+                            )
+                        )
+                    )
+                else:
+                    tool_response = tool.run(
+                        tool_call.arguments
+                    )
 
-        if not final_response:
-            raise AgentException(
-                f"Agent exceeded max tool iterations: "
-                f"{self.max_tool_iterations}"
-            )
-        return final_response
+                # 将 ToolResponse 转成给 LLM 看的文本
+                if tool_response.status == ToolStatus.SUCCESS:
+                    tool_content = tool_response.text
+                else:
+                    error = tool_response.error_info
+                    tool_content = (
+                        f"Tool execution failed: "
+                        f"{error.type if error else 'UnknownError'} - "
+                        f"{error.message if error else 'unknown error'}"
+                    )
 
+                messages.append(
+                    Message(
+                        role="tool",
+                        content=tool_content,
+                        tool_call_id=tool_call.id
+                    )
+                )
+                raise AgentException(
+                    "Agent terminated unexpectedly"
+                )
+        return None
 
     def _build_messages(self, input_text: str) -> list[Message]:
         """构建消息列表"""

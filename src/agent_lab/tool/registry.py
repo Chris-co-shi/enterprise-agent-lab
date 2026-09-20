@@ -1,5 +1,5 @@
 from .base import Tool
-from ..core.exceptions import ToolException
+from ..core import ToolException
 
 
 class ToolRegistry:

@@ -1,5 +1,4 @@
-from tool.response import ToolStatus
-from ..tool.response import ToolResponse, ToolError
+from ..tool.response import ToolResponse, ToolError,ToolStatus
 from ..core.exceptions import AgentException
 from ..core import Message
 from ..llm import LLMClient
@@ -118,10 +117,9 @@ class SimpleAgent(BaseAgent):
                         tool_call_id=tool_call.id
                     )
                 )
-                raise AgentException(
-                    "Agent terminated unexpectedly"
-                )
-        return None
+        raise AgentException(
+            "Agent terminated unexpectedly"
+        )
 
     def _build_messages(self, input_text: str) -> list[Message]:
         """构建消息列表"""

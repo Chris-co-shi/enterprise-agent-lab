@@ -1,11 +1,23 @@
 import os
+
 from dotenv import load_dotenv
 
-from agent import SimpleAgent
+from agent_lab.agent import SimpleAgent
 from agent_lab.llm import LLMClient
+from agent_lab.tool import ToolRegistry
+from agent_lab.tool.function import FunctionTool
+
 load_dotenv()
 
+def add(a: int, b: int) -> int:
+    """两个整数相加"""
+    return a + b
 
+
+registry = ToolRegistry()
+registry.register(
+    FunctionTool(add)
+)
 llm = LLMClient(
     model="deepseek-flash",
     api_key=os.getenv("DEEPSEEK_API_KEY"),
@@ -13,17 +25,19 @@ llm = LLMClient(
 )
 
 agent = SimpleAgent(
-    name="simple-agent",
+    name="calculator-agent",
     llm=llm,
-    system_prompt="你是一个简洁的助手。"
+    tool_registry=registry,
+    system_prompt="需要计算时优先使用提供的工具。"
 )
 
-result = agent.run("你好，简单介绍一下你自己。")
+result = agent.run(
+    "请使用工具计算 12 + 8。"
+)
 
 print("result:", result)
 print("history:", agent.get_history())
 
 assert result
+assert "20" in result
 assert len(agent.get_history()) == 2
-assert agent.get_history()[0].role == "user"
-assert agent.get_history()[1].role == "assistant"

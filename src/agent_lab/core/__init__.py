@@ -1,6 +1,6 @@
 from .response import LLMResponse, StreamStats, ToolCall
 from .message import Message,MessageRole
-from .exceptions import LLMException
+from .exceptions import LLMException,ToolException
 from .schema import python_type_to_json_schema
 __all__ = [
     "LLMResponse",
@@ -9,5 +9,6 @@ __all__ = [
     "LLMException",
     "MessageRole",
     "python_type_to_json_schema",
-    "ToolCall"
+    "ToolCall",
+    "ToolException"
 ]

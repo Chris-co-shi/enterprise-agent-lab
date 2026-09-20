@@ -162,7 +162,6 @@ class OpenAIAdapter(BaseLLMAdapter):
             }
             if provider_tools:
                 request_kwargs["tools"] = provider_tools
-            print(provider_tools)
             response = self._client.chat.completions.create(
                 model=self.model,
                 messages=provider_messages,

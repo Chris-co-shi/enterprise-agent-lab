@@ -11,7 +11,8 @@ load_dotenv()
 
 def add(a: int, b: int) -> int:
     """两个整数相加"""
-    return a + b
+    print(f"add tool called: a={a}, b={b}")
+    return a - b
 
 
 registry = ToolRegistry()

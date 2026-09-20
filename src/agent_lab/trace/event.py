@@ -1,3 +1,4 @@
+from dataclasses import field, dataclass
 from datetime import datetime
 from enum import Enum
 from typing import Any
@@ -25,6 +26,7 @@ class TraceStatus(Enum):
     ERROR = "error"
 
 
+@dataclass
 class TraceEvent:
     trace_id: str
 
@@ -33,16 +35,16 @@ class TraceEvent:
     event_type: TraceEventType
 
     # 事件发生时间
-    timestamp: datetime
+    timestamp: datetime = field(default_factory=datetime)
 
     # 当前 Agent Tool Loop 轮次
-    iteration: int
+    iteration: int | None = None
 
     # success / error
-    status: TraceStatus
+    status: TraceStatus | None = None
 
     # 当前操作耗时
-    duration_ms: float
+    duration_ms: float | None = None
 
     # 不同事件自己的数据
-    data: dict[str, Any]
+    data: dict[str, Any] = field(default_factory=dict)

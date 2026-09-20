@@ -16,14 +16,21 @@ class TraceSink(ABC):
 class ConsoleTraceSink(TraceSink):
 
     def emit(self, event: TraceEvent) -> None:
+        payload = serialize_event(event)
+
+        duration = (
+            f"{event.duration_ms:.2f}ms"
+            if event.duration_ms is not None
+            else "-"
+        )
         print(
             f"[TRACE] "
             f"{event.trace_id} "
             f"#{event.sequence} "
             f"{event.event_type.value} "
             f"status={event.status.value if event.status else '-'} "
-            f"duration={event.duration_ms or '-'}ms "
-            f"data={event.data}"
+            f"duration={duration} "
+            f"data={payload['data']}"
         )
 
 

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -15,7 +16,12 @@ from agent_lab.trace import (
 
 load_dotenv()
 
-
+print("cwd =", Path.cwd())
+print(
+    "trace file =",
+    Path("logs/agent-trace.jsonl").resolve()
+)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 def add(a: int, b: int) -> int:
     """两个整数相加"""
     return a + b
@@ -32,7 +38,9 @@ configure_trace(
         sinks=[
             ConsoleTraceSink(),
             JsonlTraceSink(
-                "logs/agent-trace.jsonl"
+                PROJECT_ROOT
+                / "logs"
+                / "agent-trace.jsonl"
             ),
         ]
     )

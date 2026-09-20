@@ -49,10 +49,12 @@ def serialize_value(value: Any) -> Any:
             for item in value
         ]
 
-        # Tool 这类普通对象
-    if (hasattr(value, "name")
+    # Tool 这类普通对象
+    if (
+            hasattr(value, "name")
             and hasattr(value, "description")
-            and hasattr(value, "parameters")):
+            and hasattr(value, "parameters")
+    ):
         return {
             "name": serialize_value(value.name),
             "description": serialize_value(value.description),

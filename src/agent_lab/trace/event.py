@@ -1,5 +1,5 @@
 from dataclasses import field, dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -35,7 +35,7 @@ class TraceEvent:
     event_type: TraceEventType
 
     # 事件发生时间
-    timestamp: datetime = field(default_factory=datetime)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     # 当前 Agent Tool Loop 轮次
     iteration: int | None = None

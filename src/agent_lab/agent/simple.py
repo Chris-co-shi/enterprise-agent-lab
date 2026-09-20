@@ -14,7 +14,7 @@ class SimpleAgent(BaseAgent):
             llm: LLMClient,
             tool_registry: ToolRegistry | None = None,  # 因为 Agent 即使没有工具，也应该能退化成普通 LLM Agent。
             system_prompt: str | None = None,
-            max_tool_iterations: int = 5  # 最大循环数量
+            max_tool_iterations: int = 5  #最大工具调用轮次
     ):
         super().__init__(
             name=name,
@@ -24,20 +24,13 @@ class SimpleAgent(BaseAgent):
         )
         self.max_tool_iterations = max_tool_iterations
 
-    def run(self, input_text: str, **kwargs) -> str | None:
+    def run(self, input_text: str, **kwargs) -> str:
         messages = self._build_messages(input_text)
         tools = (
             self.tool_registry.list_tools()
             if self.tool_registry
             else []
         )
-        # 如果没有启用工具调用，直接返回 LLM 响应
-        if not tools:
-            response = self.llm.invoke(messages, **kwargs)
-            response_text = response.content or ""
-            self.add_message(Message(role="user", content=input_text))
-            self.add_message(Message(role="assistant", content=response_text))
-            return response_text
 
         for current_iteration in range(
                 self.max_tool_iterations + 1

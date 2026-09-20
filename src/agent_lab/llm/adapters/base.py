@@ -1,9 +1,9 @@
 import time
 from abc import ABC, abstractmethod
-from typing import Optional, Any, Iterator, Callable
+from typing import Optional, Any, Iterator
 
 
-from ...core import Message, LLMResponse, StreamStats
+from ...core import Message, LLMResponse
 
 
 class BaseLLMAdapter(ABC):

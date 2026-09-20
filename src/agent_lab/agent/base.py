@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from tool.registry import ToolRegistry
+from ..tool.registry import ToolRegistry
 from ..core import Message
 from ..context import HistoryManager
 from ..llm import LLMClient
@@ -24,8 +24,6 @@ class BaseAgent(ABC):
     @abstractmethod
     def run(self, input_text: str) -> str:
         pass
-
-
 
     def add_message(self, message: Message):
         self.history.append(message)

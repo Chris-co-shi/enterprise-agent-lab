@@ -16,9 +16,9 @@ class Agent(BaseAgent):
         super().__init__(
             name = name,
             llm=llm,
-            system_prompt=system_prompt
+            system_prompt=system_prompt,
+            tool_registry=tool_registry
         )
-        self.tool_registry = tool_registry
         self.max_iterations = max_iterations
 
 

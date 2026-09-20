@@ -1,19 +1,19 @@
 from functools import wraps
 from time import perf_counter
 
+from .logger import create_trace_logger
 from .context import set_current_trace, reset_current_trace
 from .event import TraceEventType, TraceStatus
-from .logger import TraceLogger
 
 
 def trace_agent():
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-
-            trace = TraceLogger()
+            trace = create_trace_logger()
+            if trace is None:
+                return func(*args, **kwargs)
             token = set_current_trace(trace)
-
             start = perf_counter()
             try:
                 trace.record(
@@ -23,16 +23,16 @@ def trace_agent():
                     }
                 )
                 result = func(*args, **kwargs)
-
                 trace.record(
                     TraceEventType.AGENT_FINISH,
                     status=TraceStatus.SUCCESS,
-                    duration_ms=(perf_counter()-start) * 1000,
+                    duration_ms=(perf_counter() - start) * 1000,
                     data={
-                        "out":result,
+                        "output": result
                     }
                 )
                 return result
+
             except Exception as exc:
                 trace.record(
                     TraceEventType.AGENT_ERROR,
@@ -43,8 +43,12 @@ def trace_agent():
                         "message": str(exc),
                     }
                 )
+
                 raise
+
             finally:
                 reset_current_trace(token)
-        return  wrapper
+
+        return wrapper
+
     return decorator

@@ -1,4 +1,3 @@
-from core import ToolCall
 from ..core import Message
 from ..llm import LLMClient
 from ..tool.registry import ToolRegistry
@@ -41,13 +40,12 @@ class SimpleAgent(BaseAgent):
 
         while current_iteration < self.max_tool_iterations:
             current_iteration+=1
-            try:
-                response = self.llm.invoke(
-                    messages = messages,
-                    tools = self.tool_registry.list_tools()
-                )
-            except Exception as exc:
-                break
+            response = self.llm.invoke(
+                messages=messages,
+                tools=self.tool_registry.list_tools(),
+                **kwargs
+            )
+
             # 处理工具调用
             tool_calls = response.tool_calls
             if not tool_calls:
@@ -59,15 +57,15 @@ class SimpleAgent(BaseAgent):
             messages.append(Message(
                 role="assistant",
                 content=response.content,
-                tool_calls=[
-                    ToolCall(
-                        id=tc.id,
-                        name=tc.name,
-                        arguments=tc.arguments
-                    )
-                    for tc in tool_calls
-                ]
+                tool_calls=tool_calls
             ))
+
+            for tool_call in tool_calls:
+                tool = self.tool_registry.get(tool_call.name)
+                if tool is None:
+                    continue
+                tool_response = tool.run(tool_call.arguments)
+            
 
 
 

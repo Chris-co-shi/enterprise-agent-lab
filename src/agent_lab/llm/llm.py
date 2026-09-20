@@ -4,7 +4,7 @@ from .adapters import create_adapter
 from ..core.exceptions import LLMException
 from ..core.response import LLMResponse, StreamStats
 from ..core.message import Message
-
+from ..trace import trace_llm
 
 class LLMClient:
     """统一的 LLM 调用入口。
@@ -80,6 +80,7 @@ class LLMClient:
             print(f"❌ 调用LLM API时发生错误: {e}")
             raise
 
+    @trace_llm()
     def invoke(self, messages: list[Message], **kwargs) -> LLMResponse:
         """以非流式方式调用模型并返回完整 LLMResponse。
 

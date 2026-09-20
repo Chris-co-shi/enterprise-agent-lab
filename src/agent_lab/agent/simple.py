@@ -1,3 +1,4 @@
+from core.exceptions import AgentException
 from ..core import Message
 from ..llm import LLMClient
 from ..tool.registry import ToolRegistry
@@ -65,8 +66,12 @@ class SimpleAgent(BaseAgent):
                 if tool is None:
                     continue
                 tool_response = tool.run(tool_call.arguments)
-            
 
+        if not final_response:
+            raise AgentException(
+                f"Agent exceeded max tool iterations: "
+                f"{self.max_tool_iterations}"
+            )
 
 
     def _build_messages(self, input_text: str) -> list[Message]:

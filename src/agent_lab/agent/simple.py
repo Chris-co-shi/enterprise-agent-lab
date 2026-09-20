@@ -3,7 +3,7 @@ from ..tool.registry import ToolRegistry
 from .base import BaseAgent
 
 
-class Agent(BaseAgent):
+class SimpleAgent(BaseAgent):
 
     def __init__(
             self,
@@ -11,7 +11,7 @@ class Agent(BaseAgent):
             llm: LLMClient,
             tool_registry: ToolRegistry | None = None, # 因为 Agent 即使没有工具，也应该能退化成普通 LLM Agent。
             system_prompt: str | None = None,
-            max_iterations: int = 5
+            max_tool_iterations: int = 5 # 最大循环数量
     ):
         super().__init__(
             name = name,
@@ -19,7 +19,7 @@ class Agent(BaseAgent):
             system_prompt=system_prompt,
             tool_registry=tool_registry
         )
-        self.max_iterations = max_iterations
+        self.max_tool_iterations = max_tool_iterations
 
 
     def run(self, input_text: str):

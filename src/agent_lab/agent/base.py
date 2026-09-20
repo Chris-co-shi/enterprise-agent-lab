@@ -18,7 +18,7 @@ class BaseAgent(ABC):
         self.name = name
         self.llm = llm
         self.system_prompt = system_prompt
-        self.history: HistoryManager = HistoryManager()
+        self.history_manager: HistoryManager = HistoryManager()
         self.tool_registry = tool_registry
 
     @abstractmethod
@@ -26,10 +26,10 @@ class BaseAgent(ABC):
         pass
 
     def add_message(self, message: Message):
-        self.history.append(message)
+        self.history_manager.append(message)
 
     def clear_history(self):
-        self.history.clear()
+        self.history_manager.clear()
 
     def get_history(self) -> list[Message]:
-        return self.history.get_history()
+        return self.history_manager.get_history()

@@ -39,7 +39,7 @@ class SimpleAgent(BaseAgent):
         current_iteration = 0
         final_response = ""
 
-        while current_iteration <= self.max_tool_iterations:
+        while current_iteration < self.max_tool_iterations:
             current_iteration+=1
             try:
                 response = self.llm.invoke(

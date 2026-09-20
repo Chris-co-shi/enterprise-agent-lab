@@ -4,7 +4,8 @@ from typing import Callable, Any, Iterator
 import openai.types.chat as openai_chat
 
 from .base import BaseLLMAdapter
-from ...core import LLMResponse, StreamStats,LLMException,Message, MessageRole
+from ...core import LLMResponse, StreamStats, LLMException, Message, MessageRole, python_type_to_json_schema
+from ...tool import Tool
 
 
 def _convert_system_message(
@@ -32,6 +33,7 @@ def _convert_assistant_message(
         role="assistant",
         content=message.content,
     )
+
 
 class OpenAIAdapter(BaseLLMAdapter):
     OpenAIMessageConverter = Callable[
@@ -63,6 +65,47 @@ class OpenAIAdapter(BaseLLMAdapter):
             )
         return converted_messages
 
+    def _convert_tool(
+            self,
+            tool: Tool
+    ):
+        properties: dict[str, Any] = {}
+        required: list[str] = []
+
+        for parameter in tool.parameters:
+            parameter_schema = python_type_to_json_schema(
+                parameter.annotation
+            )
+
+            if parameter.description:
+                parameter_schema["description"] = parameter.description
+
+            properties[parameter.name] = parameter_schema
+
+            if parameter.required:
+                required.append(parameter.name)
+
+        return {
+            "type": "function",
+            "function": {
+                "name": tool.name,
+                "description": tool.description,
+                "parameters": {
+                    "type": "object",
+                    "properties": properties,
+                    "required": required
+                }
+            }
+        }
+
+    def _convert_tools(
+            self,
+            tools: list[Tool]
+    ) -> list[dict[str, Any]]:
+        return [
+            self._convert_tool(tool)
+            for tool in tools
+        ]
 
     def create_client(self) -> Any:
         from openai import OpenAI
@@ -77,10 +120,10 @@ class OpenAIAdapter(BaseLLMAdapter):
             self._client = self.create_client()
         start_time = time.time()
         try:
-            provider_messages  = self._convert_messages(messages)
+            provider_messages = self._convert_messages(messages)
             response = self._client.chat.completions.create(
                 model=self.model,
-                messages = provider_messages,
+                messages=provider_messages,
                 stream=False,
                 **kwargs
             )
@@ -104,11 +147,11 @@ class OpenAIAdapter(BaseLLMAdapter):
                 }
 
             return LLMResponse(
-                content = content,
+                content=content,
                 model=self.model,
                 latency_ms=latency_ms,
                 usage=usage,
-                reasoning_content = reasoning_content
+                reasoning_content=reasoning_content
             )
         except Exception as exc:
             print("TYPE:", type(exc))
@@ -124,7 +167,6 @@ class OpenAIAdapter(BaseLLMAdapter):
                 print("RESPONSE BODY:", exc.response.text)
 
             raise LLMException(f"OpenAI API 调用失败:{str(exc)}")
-
 
     def stream_invoke(self, messages: list[Message], **kwargs) -> Iterator[str]:
         if not self._client:
@@ -145,7 +187,7 @@ class OpenAIAdapter(BaseLLMAdapter):
             for chunk in response:
                 choices = getattr(chunk, "choices", None)
                 if choices:
-                    delta = getattr(choices[0],"delta", None)
+                    delta = getattr(choices[0], "delta", None)
                     if delta is not None:
                         # 提取内容
                         content = getattr(delta, "content", None)

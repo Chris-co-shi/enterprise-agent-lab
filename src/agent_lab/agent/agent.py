@@ -1,5 +1,5 @@
-from llm import LLMClient
-from tool.registry import ToolRegistry
+from ..llm import LLMClient
+from ..tool.registry import ToolRegistry
 from .base import BaseAgent
 
 

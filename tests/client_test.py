@@ -1,10 +1,12 @@
+import os
+from dotenv import load_dotenv
 from agent_lab.core import Message
 from agent_lab.llm import LLMClient
-
+load_dotenv()
 if __name__ == '__main__':
     client = LLMClient(
         model="deepseek-flash",
-        api_key="sk-64a957090b9f4bccb874413b4ebb36e1",
+        api_key=os.getenv("DEEPSEEK_API_KEY"),
         base_url="https://api.deepseek.com/v1"
     )
     messages = [

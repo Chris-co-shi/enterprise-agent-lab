@@ -22,7 +22,7 @@ class BaseAgent(ABC):
         self.tool_registry = tool_registry
 
     @abstractmethod
-    def run(self, input_text: str) -> str:
+    def run(self, input_text: str, **kwargs) -> str:
         pass
 
     def add_message(self, message: Message):

@@ -28,7 +28,7 @@ class BaseAgent(ABC):
     def add_message(self, message: Message):
         self.history.append(message)
 
-    def clear_message(self):
+    def clear_history(self):
         self.history.clear()
 
     def get_history(self) -> list[Message]:

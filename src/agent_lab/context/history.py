@@ -6,8 +6,7 @@ class HistoryManager:
 
         特性：
         - 只追加，不编辑（缓存友好）
-        - 自动压缩历史（summary + 保留最近轮次）
-        - 支持会话保存/加载
+
 
         用法示例：
         ```python

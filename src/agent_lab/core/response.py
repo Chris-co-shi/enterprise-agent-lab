@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Any
 
 
 @dataclass
@@ -7,7 +7,7 @@ class ToolCall:
     """统一的工具调用对象"""
     id: str
     name: str
-    arguments: str
+    arguments: dict[str, Any]
 
 
 @dataclass

@@ -31,9 +31,35 @@ def _convert_user_message(
 def _convert_assistant_message(
         message: Message,
 ) -> openai_chat.ChatCompletionMessageParam:
+    tool_calls = [
+        openai_chat.ChatCompletionMessageToolCallParam(
+            id=tool_call.id,
+            type="function",
+            function={
+                "name": tool_call.name,
+                "arguments": json.dumps(
+                    tool_call.arguments,
+                    ensure_ascii=False
+                )
+            }
+        )
+        for tool_call in message.tool_calls
+    ]
     return openai_chat.ChatCompletionAssistantMessageParam(
         role="assistant",
         content=message.content,
+        tool_calls=tool_calls
+    )
+
+
+def _convert_tool_message(message: Message) -> openai_chat.ChatCompletionMessageParam:
+    if not message.tool_call_id:
+        raise LLMException(f"tool message 缺少 tool call Id")
+
+    return openai_chat.ChatCompletionToolMessageParam(
+        role="tool",
+        content=message.content or "",
+        tool_call_id=message.tool_call_id,
     )
 
 
@@ -50,6 +76,7 @@ class OpenAIAdapter(BaseLLMAdapter):
         "system": _convert_system_message,
         "user": _convert_user_message,
         "assistant": _convert_assistant_message,
+        "tool": _convert_tool_message,
     }
 
     def _convert_messages(self, messages: list[Message]) -> list[openai_chat.ChatCompletionMessageParam]:
@@ -167,8 +194,8 @@ class OpenAIAdapter(BaseLLMAdapter):
                 for tool_call in choice.message.tool_calls:
                     tool_calls.append(
                         ToolCall(
-                            id = tool_call.id,
-                            name = tool_call.function.name,
+                            id=tool_call.id,
+                            name=tool_call.function.name,
                             arguments=json.loads(
                                 tool_call.function.arguments
                             )
@@ -181,7 +208,7 @@ class OpenAIAdapter(BaseLLMAdapter):
                 latency_ms=latency_ms,
                 usage=usage,
                 reasoning_content=reasoning_content,
-                tool_calls = tool_calls
+                tool_calls=tool_calls
             )
         except Exception as exc:
             print("TYPE:", type(exc))

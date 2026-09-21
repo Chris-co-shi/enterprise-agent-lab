@@ -2,9 +2,14 @@ import inspect
 from functools import wraps
 from time import perf_counter
 
-from trace.context import set_current_trace
-from trace.event import TraceEventType
-from trace.logger import create_trace_logger
+from trace.context import get_current_trace
+
+from .context import (
+    reset_current_trace,
+    set_current_trace,
+)
+from .event import TraceEventType, TraceStatus
+from .logger import create_trace_logger
 
 
 def trace_run():
@@ -70,6 +75,90 @@ def trace_run():
                 raise
             finally:
                 reset_current_trace(token)
+
+        return wrapper
+
+    return decorator
+
+
+def trace_model():
+    def decorator(func):
+        signature = inspect.signature(func)
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            trace = get_current_trace()
+
+            if trace is None:
+                return func(*args, **kwargs)
+
+            bound = signature.bind_partial(
+                *args,
+                **kwargs
+            )
+
+            agent = bound.arguments.get("agent")
+            state = bound.arguments.get("state")
+
+            step = (
+                getattr(state, "step", None)
+                if state is not None
+                else None
+            )
+
+            trace.record(
+                TraceEventType.MODEL_REQUEST,
+                step=step,
+                data={
+                    "agent": (
+                        getattr(agent, "name", None)
+                        if agent is not None
+                        else None
+                    ),
+                    "model": (
+                        getattr(
+                            getattr(agent, "llm", None),
+                            "model",
+                            None,
+                        )
+                        if agent is not None
+                        else None
+                    ),
+                }
+            )
+            start = perf_counter()
+            try:
+                response = func(*args, **kwargs)
+                trace.record(
+                    TraceEventType.MODEL_RESPONSE,
+                    step=step,
+                    status=TraceStatus.SUCCESS,
+                    duration_ms=(
+                                        perf_counter() - start
+                                ) * 1000,
+                    data={
+                        "model": response.model,
+                        "content": response.content,
+                        "tool_calls": response.tool_calls,
+                        "usage": response.usage,
+                    }
+                )
+                return response
+            except Exception as exc:
+                trace.record(
+                    TraceEventType.MODEL_RESPONSE,
+                    step=step,
+                    status=TraceStatus.ERROR,
+                    duration_ms=(
+                                        perf_counter() - start
+                                ) * 1000,
+                    data={
+                        "error_type": type(exc).__name__,
+                        "message": str(exc),
+                    }
+                )
+
+                raise
 
         return wrapper
 

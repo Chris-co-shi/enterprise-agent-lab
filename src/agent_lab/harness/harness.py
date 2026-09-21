@@ -2,7 +2,7 @@ from ..tool import ToolResponse, ToolError, ToolStatus
 from .state import AgentState
 from ..core import Message, LLMResponse, ToolCall
 from ..agent import Agent
-from ..trace.decorators import trace_run
+from ..trace.decorators import trace_run, trace_model
 
 class AgentHarness:
 
@@ -50,6 +50,7 @@ class AgentHarness:
         messages.extend(state.trajectory)
         return messages
 
+    @trace_model()
     def _invoke_model(
             self,
             agent: Agent,

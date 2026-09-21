@@ -10,12 +10,10 @@ class Agent:
             self,
             name: str,
             llm: LLMClient,
-            strategy: AgentStrategy,
             system_prompt: Optional[str] = None,
             tool_registry: Optional['ToolRegistry'] = None
     ):
         self.name = name
         self.llm = llm
-        self.strategy = strategy
         self.system_prompt = system_prompt
         self.tool_registry = tool_registry

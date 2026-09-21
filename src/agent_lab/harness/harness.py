@@ -1,5 +1,5 @@
 from .state import AgentState
-from ..core import Message
+from ..core import Message,LLMResponse
 from ..agent import Agent
 
 
@@ -7,9 +7,7 @@ class AgentHarness:
 
     def _create_initial_state(
             self,
-            # agent: Agent,
             input_text: str,
-            # history: list[Message] | None = None
     ) -> AgentState:
         """
         创建 Run State
@@ -44,3 +42,26 @@ class AgentHarness:
             messages.extend(history)
         messages.extend(state.trajectory)
         return messages
+
+    def _invoke_model(
+            self,
+            agent: Agent,
+            state: AgentState,
+            history: list[Message] | None = None,
+            **kwargs
+    ) -> LLMResponse:
+        messages = self._build_messages(
+            agent=agent,
+            state=state,
+            history=history,
+        )
+        tools = (
+            agent.tool_registry.list_tools()
+            if agent.tool_registry
+            else []
+        )
+        return agent.llm.invoke(
+            messages=messages,
+            tools=tools,
+            **kwargs,
+        )

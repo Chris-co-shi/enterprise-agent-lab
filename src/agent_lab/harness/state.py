@@ -10,4 +10,5 @@ class AgentState:
     # 这是本次 Agent Run 到目前为止发生的轨迹。
 
     step: int = 0
-    # 每完成一轮“模型决策 → 必要的 Tool 执行”后，step + 1
+    # 当前 Run 已完成的外部行动轮次。
+    # 同一模型响应中的多个 ToolCall 属于同一个 step。

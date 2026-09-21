@@ -124,7 +124,7 @@ class AgentHarness:
         else:
             error = response.error_info
             content = (
-                "Tool execution failed."
+                "Tool execution failed: "
                 f"{error.type if error else 'UnknownError'} - "
                 f"{error.message if error else 'unknown error'}"
             )

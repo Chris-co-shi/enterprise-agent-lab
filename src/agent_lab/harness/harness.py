@@ -1,8 +1,15 @@
+from trace.decorators import trace_tool
+
 from ..tool import ToolResponse, ToolError, ToolStatus
 from .state import AgentState
 from ..core import Message, LLMResponse, ToolCall
 from ..agent import Agent
-from ..trace.decorators import trace_run, trace_model
+from ..trace.decorators import (
+    trace_model,
+    trace_run,
+    trace_tool,
+)
+
 
 class AgentHarness:
 
@@ -74,6 +81,7 @@ class AgentHarness:
             **kwargs,
         )
 
+    @trace_tool()
     def _execute_tool_call(
             self,
             agent: Agent,

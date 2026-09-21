@@ -1,6 +1,6 @@
 from dataclasses import field, dataclass
 
-from ...core import Message
+from core import Message
 
 
 @dataclass

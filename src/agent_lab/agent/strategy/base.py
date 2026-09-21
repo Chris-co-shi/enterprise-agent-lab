@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from ...runtime import AgentState
 from ...core import Message
+from ...runtime.state import AgentState
 
 if TYPE_CHECKING:
-    from ...runtime import AgentRuntime
+    from ...runtime.runtime import AgentRuntime
     from ..base import BaseAgent
 
 

@@ -21,6 +21,7 @@ class AgentStrategy(ABC):
         """
         pass
 
+    @abstractmethod
     def run(
             self,
             runtime: "AgentRuntime",

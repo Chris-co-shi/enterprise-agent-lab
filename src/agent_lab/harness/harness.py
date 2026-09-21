@@ -1,5 +1,3 @@
-from trace.decorators import trace_tool
-
 from ..tool import ToolResponse, ToolError, ToolStatus
 from .state import AgentState
 from ..core import Message, LLMResponse, ToolCall
@@ -19,6 +17,51 @@ class AgentHarness:
     ):
         self.max_steps = max_steps
 
+    @trace_run()
+    def run(
+            self,
+            agent: Agent,
+            input_text: str,
+            history: list[Message] | None = None,
+            **kwargs,
+    ) -> str:
+        state = self._create_initial_state(
+            input_text=input_text
+        )
+        while True:
+            response = self._invoke_model(
+                agent=agent,
+                state=state,
+                history=history,
+                **kwargs,
+            )
+
+            self._record_model_response(
+                state=state,
+                response=response,
+            )
+
+            if not response.tool_calls:
+                return response.content or ""
+
+            if state.step >= self.max_steps:
+                raise AgentException(
+                    f"Agent exceeded max_steps={self.max_steps}"
+                )
+            
+            for tool_call in response.tool_calls:
+                tool_response = self._execute_tool_call(
+                    agent=agent,
+                    tool_call=tool_call,
+                )
+
+                self._record_tool_response(
+                    state=state,
+                    tool_call=tool_call,
+                    response=tool_response,
+                )
+
+            state.step += 1
     def _create_initial_state(
             self,
             input_text: str,

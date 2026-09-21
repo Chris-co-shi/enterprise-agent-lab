@@ -5,4 +5,6 @@ from ..core import Message
 
 @dataclass
 class AgentState:
-    messages: list[Message] = field(default_factory=list)
+
+    trajectory: list[Message] = field(default_factory=list)
+    # 这是本次 Agent Run 到目前为止发生的轨迹。

@@ -2,7 +2,7 @@ from ..trace import trace_agent
 
 
 
-class AgentRuntime:
+class AgentHarness:
 
     @trace_agent()
     def run(

@@ -1,9 +1,17 @@
+from ..tool import ToolResponse
+from ..core import ToolCall
 from .state import AgentState
 from ..core import Message,LLMResponse
 from ..agent import Agent
 
 
 class AgentHarness:
+
+    def __init__(
+            self,
+            max_steps: int = 10
+    ):
+        self.max_steps = max_steps
 
     def _create_initial_state(
             self,
@@ -65,3 +73,10 @@ class AgentHarness:
             tools=tools,
             **kwargs,
         )
+
+    def _execute_tool_call(
+            self,
+            agent: Agent,
+            tool_call: ToolCall,
+    ) -> ToolResponse:
+        

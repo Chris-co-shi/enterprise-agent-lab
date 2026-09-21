@@ -8,3 +8,6 @@ class AgentState:
 
     trajectory: list[Message] = field(default_factory=list)
     # 这是本次 Agent Run 到目前为止发生的轨迹。
+
+    step: int = 0
+    # 每完成一轮“模型决策 → 必要的 Tool 执行”后，step + 1

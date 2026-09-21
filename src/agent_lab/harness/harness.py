@@ -7,7 +7,7 @@ from ..trace.decorators import (
     trace_run,
     trace_tool,
 )
-
+from ..core.exceptions import AgentException
 
 class AgentHarness:
 
@@ -48,7 +48,7 @@ class AgentHarness:
                 raise AgentException(
                     f"Agent exceeded max_steps={self.max_steps}"
                 )
-            
+
             for tool_call in response.tool_calls:
                 tool_response = self._execute_tool_call(
                     agent=agent,

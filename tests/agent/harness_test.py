@@ -1,5 +1,5 @@
 import os
-
+from pathlib import Path
 from dotenv import load_dotenv
 
 from agent_lab.agent import Agent
@@ -7,10 +7,30 @@ from agent_lab.harness import AgentHarness
 from agent_lab.llm import LLMClient
 from agent_lab.tool import ToolRegistry
 from agent_lab.tool.function import FunctionTool
-
+from agent_lab.trace import (
+    configure_trace,
+    TraceConfig,
+    ConsoleTraceSink,
+    JsonlTraceSink,
+)
 
 load_dotenv()
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+configure_trace(
+    TraceConfig(
+        enabled=True,
+        sinks=[
+            ConsoleTraceSink(),
+            JsonlTraceSink(
+                PROJECT_ROOT
+                / "logs"
+                / "agent-trace.jsonl"
+            ),
+        ]
+    )
+)
 
 def add(a: int, b: int) -> int:
     """计算两个整数之和"""

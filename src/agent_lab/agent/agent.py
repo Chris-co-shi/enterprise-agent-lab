@@ -2,8 +2,6 @@ from typing import Optional
 
 from .strategy import AgentStrategy
 from ..tool import ToolRegistry
-from ..core import Message
-from ..context import HistoryManager
 from ..llm import LLMClient
 
 

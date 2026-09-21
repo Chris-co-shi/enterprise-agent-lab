@@ -2,7 +2,7 @@ from ..tool import ToolResponse, ToolError, ToolStatus
 from .state import AgentState
 from ..core import Message, LLMResponse, ToolCall
 from ..agent import Agent
-
+from ..trace.decorators import trace_run
 
 class AgentHarness:
 

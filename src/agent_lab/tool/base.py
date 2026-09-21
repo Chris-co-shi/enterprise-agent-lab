@@ -26,13 +26,9 @@ class Tool(ABC):
         self.description = description
         self.parameters = parameters
 
-    @trace_tool()
-    def run(self,
-            arguments: dict[str, Any]) -> ToolResponse:
-        return self._run(arguments)
 
     @abstractmethod
-    def _run(
+    def run(
             self,
             arguments: dict[str, Any],
     ) -> ToolResponse:

@@ -42,7 +42,7 @@ class FunctionTool(Tool):
             parameters=parameters
         )
 
-    def _run(self, arguments: dict[str, Any]) -> ToolResponse:
+    def run(self, arguments: dict[str, Any]) -> ToolResponse:
         try:
             result = self.func(**arguments)
             data = result if isinstance(result, dict) else {"result": result}

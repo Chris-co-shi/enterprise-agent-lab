@@ -72,7 +72,7 @@ def serialize_event(
         "sequence": event.sequence,
         "event_type": event.event_type.value,
         "timestamp": event.timestamp.isoformat(),
-        "iteration": event.iteration,
+        "step": event.step,
         "status": (
             event.status.value
             if event.status

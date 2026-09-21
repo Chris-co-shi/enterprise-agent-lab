@@ -5,19 +5,16 @@ from typing import Any
 
 
 class TraceEventType(Enum):
-    AGENT_START = "agent_start"
+    RUN_START = "run_start"
 
-    LLM_REQUEST = "llm_request"
-
-    LLM_RESPONSE = "llm_response"
+    MODEL_REQUEST = "model_request"
+    MODEL_RESPONSE = "model_response"
 
     TOOL_CALL = "tool_call"
-
     TOOL_RESULT = "tool_result"
 
-    AGENT_FINISH = "agent_finish"
-
-    AGENT_ERROR = "agent_error"
+    RUN_FINISH = "run_finish"
+    RUN_ERROR = "run_error"
 
 
 class TraceStatus(Enum):
@@ -38,7 +35,7 @@ class TraceEvent:
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     # 当前 Agent Tool Loop 轮次
-    iteration: int | None = None
+    step: int | None = None
 
     # success / error
     status: TraceStatus | None = None

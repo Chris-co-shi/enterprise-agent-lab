@@ -25,7 +25,7 @@ class TraceLogger:
             self,
             event_type: TraceEventType,
             *,
-            iteration: int | None = None,
+            step: int | None = None,
             status: TraceStatus | None = None,
             duration_ms: float | None = None,
             data: dict[str, Any] | None = None
@@ -36,7 +36,7 @@ class TraceLogger:
             trace_id=self.trace_id,
             sequence=self._sequence,
             event_type=event_type,
-            iteration=iteration,
+            step=step,
             status=status,
             duration_ms=duration_ms,
             data={} if data is None else dict(data),

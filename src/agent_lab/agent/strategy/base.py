@@ -6,7 +6,7 @@ from ...runtime.state import AgentState
 
 if TYPE_CHECKING:
     from ...runtime.runtime import AgentRuntime
-    from ..base import BaseAgent
+    from ..agent import Agent
 
 
 class AgentStrategy(ABC):
@@ -25,7 +25,7 @@ class AgentStrategy(ABC):
     def run(
             self,
             runtime: "AgentRuntime",
-            agent: "BaseAgent",
+            agent: "Agent",
             state: AgentState,
             **kwargs
     ) -> str:

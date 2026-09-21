@@ -1,7 +1,6 @@
-from ..tool import ToolResponse
-from ..core import ToolCall
+from ..tool import ToolResponse, ToolError
 from .state import AgentState
-from ..core import Message,LLMResponse
+from ..core import Message, LLMResponse, ToolCall
 from ..agent import Agent
 
 
@@ -79,4 +78,24 @@ class AgentHarness:
             agent: Agent,
             tool_call: ToolCall,
     ) -> ToolResponse:
-        
+        registry = agent.tool_registry
+
+        if registry is None:
+            return ToolResponse.error(
+                ToolError(
+                    type="ToolNotFound",
+                    message=f"Tool '{tool_call.name}' not found"
+                )
+            )
+
+        tool = registry.get(tool_call.name)
+
+        if tool is None:
+            return ToolResponse.error(
+                ToolError(
+                    type="ToolNotFound",
+                    message=f"Tool '{tool_call.name}' not found"
+                )
+            )
+
+        return tool.run(tool_call.arguments)

@@ -1,4 +1,4 @@
-from ..tool import ToolResponse, ToolError
+from ..tool import ToolResponse, ToolError, ToolStatus
 from .state import AgentState
 from ..core import Message, LLMResponse, ToolCall
 from ..agent import Agent
@@ -99,3 +99,39 @@ class AgentHarness:
             )
 
         return tool.run(tool_call.arguments)
+
+    def _record_model_response(
+            self,
+            state: AgentState,
+            response: LLMResponse,
+    ):
+        state.trajectory.append(
+            Message(
+                role="assistant",
+                content=response.content,
+                tool_calls=response.tool_calls,
+            )
+        )
+
+    def _record_tool_response(
+            self,
+            state: AgentState,
+            tool_call: ToolCall,
+            response: ToolResponse,
+    ):
+        if response.status == ToolStatus.SUCCESS:
+            content = response.text
+        else:
+            error = response.error_info
+            content = (
+                "Tool execution failed."
+                f"{error.type if error else 'UnknownError'} - "
+                f"{error.message if error else 'unknown error'}"
+            )
+        state.trajectory.append(
+            Message(
+                role="tool",
+                content=content,
+                tool_call_id=tool_call.id
+            )
+        )
